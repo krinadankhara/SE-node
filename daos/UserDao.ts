@@ -61,6 +61,13 @@ export default class UserDao implements UserDaoI {
         UserModel.updateOne(
             {_id: uid},
             {$set: user});
+
+    /**
+     * Updates user salary with new values in database
+     * @param {string} username Represents name of user
+     * @param {number} salary salary to be updated
+     * @returns Promise To be notified when salary is updated in the database
+     */
     
     updateUserSalaryByUsername = async (username: string, salary: number): Promise<any> =>
         UserModel.updateOne(
@@ -82,10 +89,22 @@ export default class UserDao implements UserDaoI {
      */
     deleteAllUsers = async (): Promise<any> =>
         UserModel.deleteMany({});
-    
+
+    /**
+     * Uses UserModel to retrieve single user document from users collection
+     * @param {string} username Represents name of user
+     * @param {string} password Represents password of user
+     * @returns Promise To be notified when user is retrieved from the database
+     */
     findUserByCredentials = async (username: string, password: string): Promise<any> =>
         UserModel.findOne({username: username, password: password});
-    
+
+
+    /**
+     * Uses UserModel to retrieve single user document from users collection
+     * @param {string} username Represents name of user
+     * @returns Promise To be notified when user is retrieved from the database
+     */
     findUserByUsername = async (username: string): Promise<any> =>
         UserModel.findOne({username});
 };
