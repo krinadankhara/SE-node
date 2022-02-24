@@ -33,12 +33,11 @@ export default class BookmarkController implements BookmarkControllerI {
      * API
      * @returns BookmarkController
      */
-
     public static getInstance = (app: Express): BookmarkController => {
         if(BookmarkController.bookmarkController === null) {
             BookmarkController.bookmarkController = new BookmarkController();
-            app.post("/api/users/:uid/bookmarks/:tuid", BookmarkController.bookmarkController.userBookmarksTuit);
-            app.delete("/api/users/:uid/bookmarks/:tuid", BookmarkController.bookmarkController.userUnBookmarksTuit);
+            app.post("/api/users/:uid/bookmarks/:tid", BookmarkController.bookmarkController.userBookmarksTuit);
+            app.delete("/api/users/:uid/bookmarks/:tid", BookmarkController.bookmarkController.userUnBookmarksTuit);
             app.get("/api/users/:uid/bookmarked", BookmarkController.bookmarkController.findBookmarkedTuitbyUser);
         }
         return BookmarkController.bookmarkController;
@@ -55,7 +54,6 @@ export default class BookmarkController implements BookmarkControllerI {
      * body formatted as JSON containing the new bookmarks that was inserted in the
      * database
      */
-
     userBookmarksTuit = (req: Request, res: Response) =>
         BookmarkController.bookmarkDao.userBookmarksTuit(req.params.uid, req.params.tid)
             .then(bookmarks => res.json(bookmarks));
@@ -68,8 +66,6 @@ export default class BookmarkController implements BookmarkControllerI {
      * @param {Response} res Represents response to client, including status
      * on whether deleting the bookmark was successful or not
      */
-
-
     userUnBookmarksTuit = (req: Request, res: Response) =>
         BookmarkController.bookmarkDao.userUnBookmarksTuit(req.params.uid, req.params.tid)
             .then(status => res.send(status));
@@ -82,7 +78,6 @@ export default class BookmarkController implements BookmarkControllerI {
      * @param {Response} res Represents response to client, including the
      * body formatted as JSON arrays containing the tuit objects that are bookmarked
      */
-
     findBookmarkedTuitbyUser = (req: Request, res: Response) =>
             BookmarkController.bookmarkDao.findBookmarkedTuitbyUser(req.params.uid)
                 .then(bookmarks => res.json(bookmarks));
